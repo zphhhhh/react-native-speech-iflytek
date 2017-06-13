@@ -95,7 +95,7 @@ public class SpeechSynthesizerModule extends ReactContextBaseJavaModule {
                     WritableMap params = Arguments.createMap();
                     params.putString("content", content);
                     params.putString("filename", filename);
-                    onJSEvent(getReactApplicationContext(), "onSpeechSynthesizerBufferCompletedEvent", params);
+                    onJSEvent(getReactApplicationContext(), "onSynthesizerBufferCompletedEvent", params);
                 }
             }
 
@@ -117,7 +117,7 @@ public class SpeechSynthesizerModule extends ReactContextBaseJavaModule {
             @Override
             public void onCompleted(SpeechError speechError) {
                 // 播放完成
-
+                onTtsCompleted();
             }
 
             @Override
@@ -210,7 +210,7 @@ public class SpeechSynthesizerModule extends ReactContextBaseJavaModule {
         // 设置音频保存路径，保存音频格式支持pcm、wav，设置路径为sd卡请注意WRITE_EXTERNAL_STORAGE权限
         // 注：AUDIO_FORMAT参数语记需要更新版本才能生效
         mTts.setParameter(SpeechConstant.AUDIO_FORMAT, "wav");
-        mTts.setParameter(SpeechConstant.TTS_AUDIO_PATH, Environment.getExternalStorageDirectory() + "/App/SpeechSynthesizer");
+        mTts.setParameter(SpeechConstant.TTS_AUDIO_PATH, Environment.getExternalStorageDirectory() + "/App/Synthesizer");
     }
 
     private void onTtsCompleted() {
@@ -220,7 +220,7 @@ public class SpeechSynthesizerModule extends ReactContextBaseJavaModule {
         WritableMap params = Arguments.createMap();
         params.putInt("duration", duration);
 
-        onJSEvent(getReactApplicationContext(), "onSpeechSynthesizerSpeakCompletedEvent", params);
+        onJSEvent(getReactApplicationContext(), "onSynthesizerSpeakCompletedEvent", params);
     }
 
     private void showTip(final String str) {

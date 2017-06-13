@@ -5,7 +5,8 @@
  */
 
 import React, { Component } from "react";
-import { AppRegistry, StyleSheet, Text, TextInput, Button, View, DeviceEventEmitter, ToastAndroid } from "react-native";
+import { AppRegistry, StyleSheet, Text, TextInput, View, DeviceEventEmitter, ToastAndroid } from "react-native";
+import Button from "react-native-button";
 import { Recognizer, Synthesizer } from "react-native-speech-iflytek";
 
 class Example extends Component {
@@ -37,48 +38,54 @@ class Example extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <TextInput
-          style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
-          onChangeText={text => this.setState({ text })}
-          value={this.state.text}
-        />
-        <Text
-          onStartShouldSetResponder={this.onRecordStart}
-          onResponderRelease={this.onRecordEnd}
+      <View style={styles.container} onStartShouldSetResponder={() => true}>
+        <TextInput onChangeText={text => this.setState({ text })} value={this.state.text} />
+        <Button
+          containerStyle={styles.containerStyle}
+          style={{ color: "white" }}
+          onPress={this.onRecordEnd}
+          onPressIn={this.onRecordStart}
+          activeOpacity={0.8}
           onResponderTerminationRequest={() => true}
-          onPress={this.onRecordBtnPress}
-          style={styles.recordBtn}
+          onResponderTerminate={this.onRecordCancel}
         >
           {this.state.recordBtnText}
-        </Text>
-        <Button title="Tap to speak" onPress={this.onSyntheBtnPress} />
+        </Button>
+        <Button
+          containerStyle={styles.containerStyle}
+          style={{ color: "white" }}
+          onPress={this.onSyntheBtnPress}
+          activeOpacity={0.8}
+        >
+          Tap to speak
+        </Button>
       </View>
     );
   }
 
   onRecordStart() {
-    ToastAndroid.show("开始录音", ToastAndroid.SHORT);
+    ToastAndroid.show("Begin to record", ToastAndroid.SHORT);
     this.setState({ recordBtnText: "Release to stop" });
     Recognizer.start();
-
-    // setTimeout(() => {
-    //   this.setState({ recordBtnText: "Press to record" });
-    //   Recognizer.stop();
-    // }, 5000);
   }
 
   onRecordEnd() {
-    ToastAndroid.show("结束录音", ToastAndroid.SHORT);
+    ToastAndroid.show("End to record", ToastAndroid.SHORT);
     this.setState({ recordBtnText: "Press to record" });
     Recognizer.stop();
+  }
+
+  onRecordCancel(evt) {
+    ToastAndroid.show("cancel", ToastAndroid.SHORT);
+    // setTimeout(() => {
+    //   Recognizer.cancel();
+    // }, 500);
   }
 
   onSpeechRecognizerResult(e) {
     if (!e.isLast) {
       return;
     }
-    ToastAndroid.show(e.result, ToastAndroid.SHORT);
     this.setState({ text: e.result });
   }
 
@@ -95,8 +102,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "stretch",
-    paddingLeft: 5,
-    paddingRight: 5
+    padding: 5
   },
   result: {
     fontSize: 20,
@@ -111,6 +117,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 4,
     borderColor: "#ccc"
+  },
+  containerStyle: {
+    backgroundColor: "#0275d8",
+    margin: 4,
+    padding: 4,
+    borderRadius: 2
   }
 });
 

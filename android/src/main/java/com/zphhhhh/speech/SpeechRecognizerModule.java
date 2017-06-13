@@ -38,8 +38,6 @@ import javax.annotation.Nullable;
 public class SpeechRecognizerModule extends ReactContextBaseJavaModule {
     private Context context;
 
-    //    private static RecognizerDialog mIatDialog;
-//    private static RecognizerDialogListener mRDListner;
     private static SpeechRecognizer mIat;
     private static RecognizerListener mIatListener;
     private static String result = "";
@@ -89,7 +87,7 @@ public class SpeechRecognizerModule extends ReactContextBaseJavaModule {
             public void onVolumeChanged(int volume, byte[] bytes) {
                 WritableMap params = Arguments.createMap();
                 params.putInt("volume", volume);
-                SpeechRecognizerModule.this.onJSEvent(getReactApplicationContext(), "onSpeechRecognizerVolumeChanged", params);
+                SpeechRecognizerModule.this.onJSEvent(getReactApplicationContext(), "onRecognizerVolumeChanged", params);
             }
 
             @Override
@@ -241,7 +239,7 @@ public class SpeechRecognizerModule extends ReactContextBaseJavaModule {
             result = "";
         }
 
-        this.onJSEvent(getReactApplicationContext(), "onSpeechRecognizerResult", params);
+        this.onJSEvent(getReactApplicationContext(), "onRecognizerResult", params);
     }
 
     private void onIatError(SpeechError error) {
