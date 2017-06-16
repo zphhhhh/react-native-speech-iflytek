@@ -5,11 +5,11 @@
  */
 
 import React, { Component } from "react";
-import { AppRegistry, StyleSheet, Text, TextInput, View, DeviceEventEmitter, ToastAndroid } from "react-native";
-import Button from "react-native-button";
+import { AppRegistry, StyleSheet, View, TextInput, ToastAndroid, DeviceEventEmitter } from "react-native";
 import { Recognizer, Synthesizer } from "react-native-speech-iflytek";
+import Button from "react-native-button";
 
-class Example extends Component {
+export default class Example extends Component {
   constructor(props) {
     super(props);
 
@@ -20,20 +20,22 @@ class Example extends Component {
 
     this.onRecordStart = this.onRecordStart.bind(this);
     this.onRecordEnd = this.onRecordEnd.bind(this);
-    this.onSpeechRecognizerResult = this.onSpeechRecognizerResult.bind(this);
+    this.onRecordCancel = this.onRecordCancel.bind(this);
+    this.onRecognizerResult = this.onRecognizerResult.bind(this);
+    this.onRecognizerVolumeChanged = this.onRecognizerVolumeChanged.bind(this);
     this.onSyntheBtnPress = this.onSyntheBtnPress.bind(this);
   }
 
   componentDidMount() {
     Synthesizer.init("57c7c5b0");
     Recognizer.init("57c7c5b0");
-    DeviceEventEmitter.addListener("onSpeechRecognizerResult", this.onSpeechRecognizerResult);
-    DeviceEventEmitter.addListener("onSpeechRecognizerVolumeChanged", this.onSpeechRecognizerVolumeChanged);
+    DeviceEventEmitter.addListener("onRecognizerResult", this.onRecognizerResult);
+    DeviceEventEmitter.addListener("onRecognizerVolumeChanged", this.onRecognizerVolumeChanged);
   }
 
   componentWillUnmount() {
-    DeviceEventEmitter.removeListener("onSpeechRecognizerResult", this.onSpeechRecognizerResult);
-    DeviceEventEmitter.addListener("onSpeechRecognizerVolumeChanged", this.onSpeechRecognizerVolumeChanged);
+    DeviceEventEmitter.removeListener("onRecognizerResult", this.onRecognizerResult);
+    DeviceEventEmitter.addListener("onRecognizerVolumeChanged", this.onRecognizerVolumeChanged);
   }
 
   render() {
@@ -51,12 +53,7 @@ class Example extends Component {
         >
           {this.state.recordBtnText}
         </Button>
-        <Button
-          containerStyle={styles.containerStyle}
-          style={{ color: "white" }}
-          onPress={this.onSyntheBtnPress}
-          activeOpacity={0.8}
-        >
+        <Button containerStyle={styles.containerStyle} style={{ color: "white" }} onPress={this.onSyntheBtnPress} activeOpacity={0.8}>
           Tap to speak
         </Button>
       </View>
@@ -82,14 +79,16 @@ class Example extends Component {
     // }, 500);
   }
 
-  onSpeechRecognizerResult(e) {
+  onRecognizerResult(e) {
     if (!e.isLast) {
       return;
     }
     this.setState({ text: e.result });
   }
 
-  onSpeechRecognizerVolumeChanged = () => {};
+  onRecognizerVolumeChanged() {
+
+  }
 
   async onSyntheBtnPress() {
     let isSpeaking = await Synthesizer.isSpeaking();
@@ -126,5 +125,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Example;
 AppRegistry.registerComponent("Example", () => Example);
