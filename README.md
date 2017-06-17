@@ -85,3 +85,7 @@ onRecognizerResult(e) {
 语音合成缓冲完成时触发该事件
 - `onSynthesizerSpeakCompletedEvent()`
 语音合成播放完成时触发该事件
+
+## Contribute
+期待提出有关建议，欢迎做出贡献，感谢 star。  
+Github: [https://github.com/zphhhhh/react-native-speech-iflytek](https://github.com/zphhhhh/react-native-speech-iflytek)
