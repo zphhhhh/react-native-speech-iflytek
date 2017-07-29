@@ -62,7 +62,7 @@ onRecognizerResult(e) {
     - `isLast`：是否是最后一次识别，调用 `Recognizer.stop()` 后，`isLast` 值为 `true`，否则一直为 `false`
     - `duration`：当前识别时间长度
 - `onRecognizerVolumeChanged(Int volume)`  
-语音识别的音量大小，当识别的语音改变音量是会触发该事件
+语音识别的音量大小，当识别的语音改变音量时会触发该事件
 
 ### Synthesizer
 #### Methods
