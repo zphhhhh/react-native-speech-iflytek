@@ -86,6 +86,9 @@ onRecognizerResult(e) {
 - `onSynthesizerSpeakCompletedEvent()`
 语音合成播放完成时触发该事件
 
+## Mayebe
+- (Native Android) Android Studio 2.3.3 接入讯飞语音接口: http://www.jianshu.com/p/caf50402d31c
+
 ## Contribute
 期待提出有关建议，欢迎做出贡献，感谢 star。  
 Github: [https://github.com/zphhhhh/react-native-speech-iflytek](https://github.com/zphhhhh/react-native-speech-iflytek)
