@@ -6,7 +6,7 @@
 
 import React, { Component } from "react";
 import { AppRegistry, StyleSheet, View, TextInput, ToastAndroid, DeviceEventEmitter } from "react-native";
-import { Recognizer, Synthesizer } from "react-native-speech-iflytek";
+import { Recognizer, Synthesizer, SpeechConstant } from "react-native-speech-iflytek";
 import Button from "react-native-button";
 
 export default class Example extends Component {
@@ -63,6 +63,7 @@ export default class Example extends Component {
   onRecordStart() {
     ToastAndroid.show("Begin to record", ToastAndroid.SHORT);
     this.setState({ recordBtnText: "Release to stop" });
+    Synthesizer.setParameter(SpeechConstant.VOICE_NAME, "xiaoyu");
     Recognizer.start();
   }
 
