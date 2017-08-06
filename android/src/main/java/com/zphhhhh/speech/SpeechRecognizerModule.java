@@ -55,24 +55,6 @@ public class SpeechRecognizerModule extends ReactContextBaseJavaModule {
         return "SpeechRecognizerModule";
     }
 
-    @Override
-    public Map<String, Object> getConstants() {
-        final Map<String, Object> constants = new HashMap<>();
-        constants.put("PARAM", SpeechConstant.PARAMS);
-        constants.put("ENGINE_TYPE", SpeechConstant.ENGINE_TYPE);
-        constants.put("RESULT_TYPE", SpeechConstant.RESULT_TYPE);
-        constants.put("LANGUAGE", SpeechConstant.LANGUAGE);
-        constants.put("ACCENT", SpeechConstant.ACCENT);
-        constants.put("VAD_BOS", SpeechConstant.VAD_BOS);
-        constants.put("VAD_EOS", SpeechConstant.VAD_EOS);
-        constants.put("ASR_PTT", SpeechConstant.ASR_PTT);
-        constants.put("ASR_PTT", SpeechConstant.ASR_PTT);
-        constants.put("AUDIO_FORMAT", SpeechConstant.AUDIO_FORMAT);
-        constants.put("ASR_AUDIO_PATH", SpeechConstant.ASR_AUDIO_PATH);
-
-        return constants;
-    }
-
     @ReactMethod
     public void init(String AppId) {
         if (mIat != null) {
@@ -175,7 +157,7 @@ public class SpeechRecognizerModule extends ReactContextBaseJavaModule {
 
     private static void setIatParam() {
         // 清空参数
-//        mIat.setParameter(SpeechConstant.PARAMS, null);
+//        mIat.setParameter(SpeechConstantModule.PARAMS, null);
 
         // 设置听写引擎
         mIat.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD);
@@ -243,7 +225,13 @@ public class SpeechRecognizerModule extends ReactContextBaseJavaModule {
     }
 
     private void onIatError(SpeechError error) {
-        showTip(error.getPlainDescription(true));
+        WritableMap params = Arguments.createMap();
+
+        params.putInt("errorCode", error.getErrorCode());
+        params.putString("message", error.getErrorDescription());
+        params.putString("plainDescription", error.getPlainDescription(true));
+
+        this.onJSEvent(getReactApplicationContext(),"onRecognizerError",params);
     }
 
     private void showTip(final String str) {

@@ -52,26 +52,6 @@ public class SpeechSynthesizerModule extends ReactContextBaseJavaModule {
         return "SpeechSynthesizerModule";
     }
 
-    @Nullable
-    @Override
-    public Map<String, Object> getConstants() {
-        final Map<String, Object> constants = new HashMap<>();
-        constants.put("PARAM", SpeechConstant.PARAMS);
-        constants.put("ENGINE_TYPE", SpeechConstant.ENGINE_TYPE);
-        constants.put("RESULT_TYPE", SpeechConstant.RESULT_TYPE);
-        constants.put("LANGUAGE", SpeechConstant.LANGUAGE);
-        constants.put("ACCENT", SpeechConstant.ACCENT);
-        constants.put("VAD_BOS", SpeechConstant.VAD_BOS);
-        constants.put("VAD_EOS", SpeechConstant.VAD_EOS);
-        constants.put("ASR_PTT", SpeechConstant.ASR_PTT);
-        constants.put("ASR_PTT", SpeechConstant.ASR_PTT);
-        constants.put("AUDIO_FORMAT", SpeechConstant.AUDIO_FORMAT);
-        constants.put("ASR_AUDIO_PATH", SpeechConstant.ASR_AUDIO_PATH);
-        constants.put("TTS_AUDIO_PATH", SpeechConstant.TTS_AUDIO_PATH);
-
-        return constants;
-    }
-
     @ReactMethod
     public void init(String AppId) {
         if (mTts != null) {
@@ -194,7 +174,7 @@ public class SpeechSynthesizerModule extends ReactContextBaseJavaModule {
 
         mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD);
         // 设置在线合成发音人
-        mTts.setParameter(SpeechConstant.VOICE_NAME, "xiaofeng");
+        mTts.setParameter(SpeechConstant.VOICE_NAME, "xiaoyan");
         //设置合成语速
         mTts.setParameter(SpeechConstant.SPEED, "50");
         //设置合成音调

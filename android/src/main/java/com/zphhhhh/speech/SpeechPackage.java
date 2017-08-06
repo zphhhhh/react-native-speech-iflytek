@@ -22,13 +22,9 @@ public class SpeechPackage implements ReactPackage {
 
         modules.add(new SpeechRecognizerModule(reactContext));
         modules.add(new SpeechSynthesizerModule(reactContext));
+        modules.add(new SpeechConstantModule(reactContext));
 
         return modules;
-    }
-
-    @Override
-    public List<Class<? extends JavaScriptModule>> createJSModules() {
-        return Collections.emptyList();
     }
 
     @Override
