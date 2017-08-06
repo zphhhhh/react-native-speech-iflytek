@@ -2,7 +2,8 @@
 react-native-speech-iflytek 是一个 React Native 下的科大讯飞语音库，可以进行语音识别与语音合成。
 
 ## Support
-- React Native >= 0.43, 低版本未经测试
+- React Native >= 0.47.0 from 0.2.0
+- React Native >= 0.42.0 from 0.1.2
 - Android，目前仅支持 Android
 
 ## Install
@@ -17,7 +18,7 @@ react-native link
 ## Usage
 （详见 Example）引入包：
 ```
-import { Recognizer, Synthesizer } from "react-native-speech-iflytek";
+import { Recognizer, Synthesizer, SpeechConstant } from "react-native-speech-iflytek";
 ```
 语音识别：
 ```
@@ -63,6 +64,12 @@ onRecognizerResult(e) {
     - `duration`：当前识别时间长度
 - `onRecognizerVolumeChanged(Int volume)`  
 语音识别的音量大小，当识别的语音改变音量时会触发该事件
+- `onRecognizerError(JSON error)`  
+语音识别出现错误，错误信息与讯飞文档保持一致，其值：
+
+    - `errorCode`: 获取错误码
+    - `errorDescription`: 获取错误描述，不包含错误码的描述信息
+    - `plainDescription`: 获取错误描述，包含错误码的描述信息
 
 ### Synthesizer
 #### Methods
@@ -85,6 +92,12 @@ onRecognizerResult(e) {
 语音合成缓冲完成时触发该事件
 - `onSynthesizerSpeakCompletedEvent()`
 语音合成播放完成时触发该事件
+
+### SpeechConstant
+本模块包含讯飞接口的所有常量，如设置发言人、发言速度等，详见讯飞文档，使用示例：
+```
+Synthesizer.setParameter(SpeechConstant.VOICE_NAME, "xiaoyu");
+```
 
 ## Mayebe
 - (Native Android) Android Studio 2.3.3 接入讯飞语音接口: http://www.jianshu.com/p/caf50402d31c
