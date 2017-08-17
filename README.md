@@ -12,7 +12,7 @@ npm i react-native-speech-iflytek --save
 react-native link
 ```
 安装后还须进行下面两步：
-1. 在 [讯飞开放平台](http://www.xfyun.cn/sdk/dispatcher) 下载组合服务SDK（选择`语音识别`与`在线语音合成`）
+1. 在 [讯飞开放平台](http://www.xfyun.cn/sdk/dispatcher) 下载组合服务SDK（选择`语音听写`与`在线语音合成`）
 2. 使用下载 SDK 的 `Android_voice_xxxx_xxxxxxxx/libs` 文件夹替换 `YourProject/node_modules/react-native-speech-iflytek/android/libs` 文件夹，这是因为讯飞语音的原生库与注册应用进行了绑定。
 
 ## Usage
