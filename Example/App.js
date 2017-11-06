@@ -9,7 +9,7 @@ import { AppRegistry, StyleSheet, View, TextInput, ToastAndroid, DeviceEventEmit
 import { Recognizer, Synthesizer, SpeechConstant } from "react-native-speech-iflytek";
 import Button from "react-native-button";
 
-export default class Example extends Component {
+export default class App extends Component {
   constructor(props) {
     super(props);
 
@@ -125,5 +125,3 @@ const styles = StyleSheet.create({
     borderRadius: 2
   }
 });
-
-AppRegistry.registerComponent("Example", () => Example);
