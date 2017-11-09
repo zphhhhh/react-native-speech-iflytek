@@ -1,6 +1,6 @@
 {
   "name": "react-native-speech-iflytek",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Speech module based on iflytekSpeech for react native",
   "main": "index.js",
   "scripts": {
