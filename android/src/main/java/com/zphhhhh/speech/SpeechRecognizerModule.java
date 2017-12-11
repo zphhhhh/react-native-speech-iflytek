@@ -243,7 +243,13 @@ public class SpeechRecognizerModule extends ReactContextBaseJavaModule {
     }
 
     private void onIatError(SpeechError error) {
-        showTip(error.getPlainDescription(true));
+        WritableMap params = Arguments.createMap();
+ 
+        params.putInt("errorCode", error.getErrorCode());
+        params.putString("message", error.getErrorDescription());
+        params.putString("plainDescription", error.getPlainDescription(true));
+ 
+        this.onJSEvent(getReactApplicationContext(),"onRecognizerError",params);
     }
 
     private void showTip(final String str) {
