@@ -4,16 +4,34 @@ react-native-speech-iflytek 是一个 React Native 下的科大讯飞语音库�
 ## Support
 - React Native >= 0.47.0 from 0.2.0
 - React Native >= 0.42.0 from 0.1.2
-- Android，目前仅支持 Android
+- Android
+- iOS from 1.0.0
 
 ## Install
 ```
 npm i react-native-speech-iflytek --save
 react-native link
 ```
-安装后还须进行下面两步：
-1. 在 [讯飞开放平台](http://www.xfyun.cn/sdk/dispatcher) 下载组合服务SDK（选择`语音听写`与`在线语音合成`）
-2. 使用下载 SDK 的 `Android_voice_xxxx_xxxxxxxx/libs` 文件夹替换 `YourProject/node_modules/react-native-speech-iflytek/android/libs` 文件夹，这是因为讯飞语音的原生库与注册应用进行了绑定。
+安装、链接后还须进行下面两步（以 `Example` 工程为例）：
+1. 在 [讯飞开放平台](http://www.xfyun.cn/sdk/dispatcher) 下载组合服务 SDK （选择`语音听写`与`在线语音合成`），分别下载 Android 与 iOS 平台 SDK。
+2. 替换 SDK 文件：
+    1. 使用下载 Android SDK 的 `Android_voice_xxxx_xxxxxxxx/libs` 文件夹替换 `Example/node_modules/react-native-speech-iflytek/android/libs` 文件夹；
+    2. 使用下载 iOS SDK 的 `iOS_voice_xxxx_xxxxxxxx/libs` 文件夹替换 `Example/node_modules/react-native-speech-iflytek/ios/libs` 文件夹。
+3. iOS 平台还需手动添加部分依赖库：
+    1. 在 XCode 中打开 `Example/ios/YourProject.xcodeproj`；
+    2. 将讯飞框架文件 `Example/node_modules/react-native-speech-iflytek/ios/libs/iflyMSC.framework` 拖入 Project navigator 的 `Frameworks` 下，注意选择 `Copy items if needed`；
+    3. 添加讯飞依赖的系统库（见：[科大讯飞MSC开发指南-iOS-集成流程](http://doc.xfyun.cn/msc_ios/302721)）:
+        - CoreLocation.framework
+        - CoreTelephony.framework
+        - AVFoundation.framework
+        - AddressBook.framework
+        - Contacts.framework
+        - AudioToolbox.framework
+        - SystemConfiguration.framework
+        - QuartzCore.framework
+        - UIKit.framework
+        - Foundation.framework
+        - CoreGraphics.framework
 
 ## Usage
 （详见 Example）引入包：
@@ -23,7 +41,8 @@ import { Recognizer, Synthesizer, SpeechConstant } from "react-native-speech-ifl
 语音识别：
 ```
 Recognizer.init("57c7c5b0");
-DeviceEventEmitter.addListener("onRecognizerResult", this.onRecognizerResult);
+this.recognizerEventEmitter = new NativeEventEmitter(Recognizer);
+this.recognizerEventEmitter.addListener('onRecognizerResult', this.onRecognizerResult);
 Recognizer.start();
 ```
 处理识别结果：
@@ -32,7 +51,6 @@ onRecognizerResult(e) {
     if (!e.isLast) {
         return;
     }
-    ToastAndroid.show(e.result, ToastAndroid.SHORT);
     this.setState({ text: e.result });
 }
 ```
@@ -67,9 +85,11 @@ onRecognizerResult(e) {
 - `onRecognizerError(JSON error)`  
 语音识别出现错误，错误信息与讯飞文档保持一致，其值：
 
-    - `errorCode`: 获取错误码
-    - `errorDescription`: 获取错误描述，不包含错误码的描述信息
-    - `plainDescription`: 获取错误描述，包含错误码的描述信息
+    - `errorCode`: 获取错误码，关于错误码请见官方文档 [MSC错误码](http://www.xfyun.cn/index.php/default/doccenter/doccenterInner?itemTitle=ZmFx&anchor=Y29udGl0bGU2Ng==) ：
+    - `errorType`: （仅 iOS）获取错误码类型
+    - `errorDesc`: （仅 iOS）获取错误描述
+    - `errorDescription`: （仅 Android）获取错误描述，不包含错误码的描述信息
+    - `plainDescription`: （仅 Android）获取错误描述，包含错误码的描述信息
 
 ### Synthesizer
 #### Methods
@@ -90,7 +110,7 @@ onRecognizerResult(e) {
 #### Events
 - `onSynthesizerBufferCompletedEvent()`  
 语音合成缓冲完成时触发该事件
-- `onSynthesizerSpeakCompletedEvent()`
+- `onSynthesizerSpeakCompletedEvent()`  
 语音合成播放完成时触发该事件
 
 ### SpeechConstant
