@@ -3524,9 +3524,9 @@ react-native-button@^2.2.0:
   dependencies:
     prop-types "^15.5.10"
 
-react-native-speech-iflytek@^1.0.0-0:
-  version "1.0.0-0"
-  resolved "https://registry.npmjs.org/react-native-speech-iflytek/-/react-native-speech-iflytek-1.0.0-0.tgz#d139c7f24b80b1dd24622fdcacc784baea47bee2"
+react-native-speech-iflytek@^1.0.0:
+  version "1.0.0"
+  resolved "http://registry.npm.taobao.org/react-native-speech-iflytek/download/react-native-speech-iflytek-1.0.0.tgz#f5ba1eabc7ae86e06931cbf06a187491f0078b3f"
 
 react-native@0.52.0:
   version "0.52.0"
