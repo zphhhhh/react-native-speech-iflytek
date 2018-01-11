@@ -1,17 +1,25 @@
-/**
+ /**
  * Sample React Native App
  * https://github.com/facebook/react-native
  * @flow
  */
 
 import React, { Component } from "react";
-import { AppRegistry, StyleSheet, View, TextInput, ToastAndroid, DeviceEventEmitter } from "react-native";
+import { AppRegistry, StyleSheet, View, TextInput, ToastAndroid, DeviceEventEmitter, Platform, NativeEventEmitter } from "react-native";
 import { Recognizer, Synthesizer, SpeechConstant } from "react-native-speech-iflytek";
 import Button from "react-native-button";
 
 export default class App extends Component {
   constructor(props) {
     super(props);
+
+    if (Platform.OS === 'android') {
+      Synthesizer.init("57c7c5b0");
+      Recognizer.init("57c7c5b0");
+    } else if (Platform.OS === 'ios') {
+      Synthesizer.init("59a4161e");
+      Recognizer.init("59a4161e");
+    }
 
     this.state = {
       text: "",
@@ -22,20 +30,25 @@ export default class App extends Component {
     this.onRecordEnd = this.onRecordEnd.bind(this);
     this.onRecordCancel = this.onRecordCancel.bind(this);
     this.onRecognizerResult = this.onRecognizerResult.bind(this);
+    this.onRecognizerError = this.onRecognizerError.bind(this);
     this.onRecognizerVolumeChanged = this.onRecognizerVolumeChanged.bind(this);
     this.onSyntheBtnPress = this.onSyntheBtnPress.bind(this);
   }
 
   componentDidMount() {
-    Synthesizer.init("57c7c5b0");
-    Recognizer.init("57c7c5b0");
-    DeviceEventEmitter.addListener("onRecognizerResult", this.onRecognizerResult);
-    DeviceEventEmitter.addListener("onRecognizerVolumeChanged", this.onRecognizerVolumeChanged);
+    this.recognizerEventEmitter = new NativeEventEmitter(Recognizer);
+    this.recognizerEventEmitter.addListener('onRecognizerResult', this.onRecognizerResult)
+    this.recognizerEventEmitter.addListener('onRecognizerError', this.onRecognizerError)
+    this.recognizerEventEmitter.addListener('onRecognizerVolumeChanged', this.onRecognizerVolumeChanged)
+    
+    this.synthesizerEventEmitter = new NativeEventEmitter(Synthesizer);
+    this.synthesizerEventEmitter.addListener('onSynthesizerSpeakCompletedEvent', this.onSynthesizerSpeakCompletedEvent);
+    this.synthesizerEventEmitter.addListener('onSynthesizerBufferCompletedEvent', this.onSynthesizerBufferCompletedEvent);
   }
 
   componentWillUnmount() {
-    DeviceEventEmitter.removeListener("onRecognizerResult", this.onRecognizerResult);
-    DeviceEventEmitter.addListener("onRecognizerVolumeChanged", this.onRecognizerVolumeChanged);
+      this.recognizerEventEmitter.removeAllListeners();
+      this.synthesizerEventEmitter.removeAllListeners();
   }
 
   render() {
@@ -61,20 +74,17 @@ export default class App extends Component {
   }
 
   onRecordStart() {
-    ToastAndroid.show("Begin to record", ToastAndroid.SHORT);
     this.setState({ recordBtnText: "Release to stop" });
-    Synthesizer.setParameter(SpeechConstant.VOICE_NAME, "xiaoyu");
+    
     Recognizer.start();
   }
 
   onRecordEnd() {
-    ToastAndroid.show("End to record", ToastAndroid.SHORT);
     this.setState({ recordBtnText: "Press to record" });
     Recognizer.stop();
   }
 
   onRecordCancel(evt) {
-    ToastAndroid.show("cancel", ToastAndroid.SHORT);
     // setTimeout(() => {
     //   Recognizer.cancel();
     // }, 500);
@@ -87,13 +97,26 @@ export default class App extends Component {
     this.setState({ text: e.result });
   }
 
+  onRecognizerError(result) {
+    if (result.errorCode !== 0) {
+      alert(JSON.stringify(result));
+    }
+  }
+
   onRecognizerVolumeChanged() {
 
   }
 
   async onSyntheBtnPress() {
-    let isSpeaking = await Synthesizer.isSpeaking();
-    isSpeaking ? Synthesizer.stop() : Synthesizer.start(this.state.text);
+    Synthesizer.start(this.state.text);
+  }
+
+  onSynthesizerSpeakCompletedEvent(result) {
+    alert('onSynthesizerSpeakCompletedEvent\n\n' + JSON.stringify(result));
+  }
+
+  onSynthesizerBufferCompletedEvent(result) {
+    // alert('onSynthesizerBufferCompletedEvent\n\n' + JSON.stringify(result));
   }
 }
 
