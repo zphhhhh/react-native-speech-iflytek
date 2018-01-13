@@ -119,8 +119,14 @@ onRecognizerResult(e) {
 Synthesizer.setParameter(SpeechConstant.VOICE_NAME, "xiaoyu");
 ```
 
-## Mayebe
+## Maybe
 - (Native Android) Android Studio 2.3.3 接入讯飞语音接口: http://www.jianshu.com/p/caf50402d31c
+
+## FAQ
+1. iOS 提示 `iflytek.framework not found` ？  
+  将 `iflytek.framework` 拖入时注意选择 `Copy items if needed`。如忘记选择，最好的方式是在工程中删除讯飞框架，将讯飞框架移至其他文件夹，并重新拖入工程，选择 `Copy items if needed`。（Xcode 的缓存会记住上次选择，若第一次没有`Copy items if needed`，在同一位置下重新拖入不会再次出现选择框。）
+2. `react-native [command]` 命令失效？  
+  同时使用 yarn 和 npm 时可能会出现这个问题，建议再敲一次 `yarn` 命令解决依赖。
 
 ## Contribute
 期待提出有关建议，欢迎做出贡献，感谢 star。  
