@@ -1,4 +1,4 @@
-# react-native-speech-iflytek
+# react-native-speech-iflytek &middot;  [![npm](https://img.shields.io/npm/v/react-native-speech-iflytek.svg)](https://www.npmjs.com/package/react-native-speech-iflytek) [![npm](https://img.shields.io/npm/dm/react-native-speech-iflytek.svg)](https://www.npmjs.com/package/react-native-speech-iflytek) [![GitHub closed issues](https://img.shields.io/github/issues-closed/zphhhhh/react-native-speech-iflytek.svg)](https://github.com/zphhhhh/react-native-speech-iflytek/issues?q=is%3Aissue+is%3Aclosed)
 react-native-speech-iflytek 是一个 React Native 下的科大讯飞语音库，可以进行语音识别与语音合成。
 
 ## Support
