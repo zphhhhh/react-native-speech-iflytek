@@ -20,7 +20,7 @@ react-native link
 3. iOS 平台还需手动添加部分依赖库：
     1. 在 XCode 中打开 `Example/ios/YourProject.xcodeproj`；
     2. 将讯飞框架文件 `Example/node_modules/react-native-speech-iflytek/ios/libs/iflyMSC.framework` 拖入 Project navigator 的 `Frameworks` 下，注意选择 `Copy items if needed`；
-    3. 添加讯飞依赖的系统库（见：[科大讯飞MSC开发指南-iOS-集成流程](http://doc.xfyun.cn/msc_ios/302721)）:
+    3. 添加讯飞依赖的系统库（见：[科大讯飞MSC开发指南-iOS-集成流程](http://doc.xfyun.cn/msc_ios/%E9%9B%86%E6%88%90%E6%B5%81%E7%A8%8B.html)）:
         - CoreLocation.framework
         - CoreTelephony.framework
         - AVFoundation.framework
