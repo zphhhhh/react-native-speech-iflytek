@@ -133,6 +133,15 @@ RCT_EXPORT_METHOD(getParameter: (NSString *) parameter
     }
 }
 
+- (void) onVolumeChanged: (int)volume {
+    NSDictionary * result = @{
+                              @"volume": [NSNumber numberWithInt: volume]
+                              };
+    if (hasListeners) {
+        [self sendEventWithName: @"onRecognizerVolumeChanged" body: result];
+    }
+}
+
 - (NSString *) stringFromJson: (NSString *) params {
     if (params == NULL) {
         return nil;
