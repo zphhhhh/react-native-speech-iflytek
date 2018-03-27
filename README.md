@@ -80,8 +80,11 @@ onRecognizerResult(e) {
     - `result`：当前识别结果，最常使用
     - `isLast`：是否是最后一次识别，调用 `Recognizer.stop()` 后，`isLast` 值为 `true`，否则一直为 `false`
     - `duration`：当前识别时间长度
-- `onRecognizerVolumeChanged(Int volume)`  
-语音识别的音量大小，当识别的语音改变音量时会触发该事件
+- `onRecognizerVolumeChanged(JSON result)`  
+语音识别的音量大小，当识别的语音改变音量时会触发该事件，`result` 为 `JSON` 类型，其值：
+
+    - `volume`: 当前音量大小
+
 - `onRecognizerError(JSON error)`  
 语音识别出现错误，错误信息与讯飞文档保持一致，其值：
 
