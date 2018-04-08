@@ -20,9 +20,6 @@ import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SpeechUtility;
 import com.iflytek.cloud.SynthesizerListener;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.annotation.Nullable;
 
 /**
@@ -40,6 +37,8 @@ public class SpeechSynthesizerModule extends ReactContextBaseJavaModule {
     private static long endTime;
     private String content;
     private String filename;
+    //是否暂停了
+    private boolean isPaused=false;
 
 
     public SpeechSynthesizerModule(ReactApplicationContext reactContext) {
@@ -157,9 +156,16 @@ public class SpeechSynthesizerModule extends ReactContextBaseJavaModule {
     public void pause() {
         if (mTts.isSpeaking()) {
             mTts.pauseSpeaking();
+            isPaused=true;
         }
     }
-
+    @ReactMethod
+    public void resume(){
+            if(isPaused){
+                mTts.resumeSpeaking();
+                isPaused=false;
+            }
+    }
     @ReactMethod
     public void setParameter(String parameter, String value) {
         if (parameter.equals(SpeechConstant.TTS_AUDIO_PATH)) {
