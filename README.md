@@ -122,7 +122,9 @@ onRecognizerResult(e) {
 - `Synthesizer.isSpeaking()`  
 检测当前是否正在语音合成。返回 `Promise`，结果为 `bool` 类型，表示当前是否正在语音合成
 - `Synthesizer.pause()`  
-如果正在语音合成，则暂停语音合成
+如果正在语音合成，则暂停语音合成（对应 resume）
+- `Synthesizer.resume()`  
+如果正在语音合成，则开始语音合成（对应 pause）
 - `Synthesizer.setParameter(String parameter, String value)`  
 语音合成设置，详见讯飞语音文档
 - `Synthesizer.getParameter(String param)`  
