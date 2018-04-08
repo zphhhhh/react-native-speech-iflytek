@@ -19,6 +19,7 @@
 @property (nonatomic) NSTimeInterval endTime;
 @property (nonatomic, strong) NSString * content;
 @property (nonatomic, strong) NSString * filename;
+@property(nonatomic) bool * isPaused;
 
 @end
 

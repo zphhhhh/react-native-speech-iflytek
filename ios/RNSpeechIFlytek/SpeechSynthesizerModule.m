@@ -28,18 +28,18 @@ RCT_EXPORT_MODULE(SpeechSynthesizerModule);
              @"onSynthesizerBufferCompletedEvent"
              ];
 }
-
 RCT_EXPORT_METHOD(init: (NSString *) AppId) {
     if (self.iFlySpeechSynthesizer != nil) {
         return;
     }
-
+    
     NSString * initIFlytekString = [[NSString alloc] initWithFormat: @"appid=%@", AppId];
 
     [IFlySpeechUtility createUtility: initIFlytekString];
 
     self.iFlySpeechSynthesizer = [IFlySpeechSynthesizer sharedInstance];
     self.iFlySpeechSynthesizer.delegate = self;
+    self.isPaused=0;
 }
 
 RCT_EXPORT_METHOD(start: (NSString *) content) {
@@ -83,12 +83,14 @@ RCT_EXPORT_METHOD(isSpeaking: (RCTPromiseResolveBlock) resolve
 RCT_EXPORT_METHOD(pause) {
     if ([self.iFlySpeechSynthesizer isSpeaking]) {
         [self.iFlySpeechSynthesizer pauseSpeaking];
+        self.isPaused=(bool *)1;
     }
 }
 
 RCT_EXPORT_METHOD(resume) {
-    if ([self.iFlySpeechSynthesizer isSpeaking]) {
+    if(self.isPaused==(bool *)1){
         [self.iFlySpeechSynthesizer resumeSpeaking];
+        self.isPaused=0;
     }
 }
 
