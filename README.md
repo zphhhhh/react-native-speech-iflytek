@@ -17,6 +17,7 @@ react-native link
 2. 替换 SDK 文件：
     1. 使用下载 Android SDK 的 `Android_voice_xxxx_xxxxxxxx/libs` 文件夹替换 `Example/node_modules/react-native-speech-iflytek/android/libs` 文件夹；
     2. 使用下载 iOS SDK 的 `iOS_voice_xxxx_xxxxxxxx/libs` 文件夹替换 `Example/node_modules/react-native-speech-iflytek/ios/libs` 文件夹。
+    
 3. iOS 平台还需手动添加部分依赖库：
     1. 在 XCode 中打开 `Example/ios/YourProject.xcodeproj`；
     2. 将讯飞框架文件 `Example/node_modules/react-native-speech-iflytek/ios/libs/iflyMSC.framework` 拖入 Project navigator 的 `Frameworks` 下，注意选择 `Copy items if needed`；
@@ -32,7 +33,23 @@ react-native link
         - UIKit.framework
         - Foundation.framework
         - CoreGraphics.framework
-
+        
+4.android平台权限
+   ```
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!--读取网络信息状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!--获取当前wifi状态 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <!--允许程序改变网络连接状态 -->
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <!--读取手机信息权限 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+   ```
 ## Usage
 （详见 Example）引入包：
 ```
