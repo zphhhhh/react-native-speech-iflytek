@@ -26,7 +26,10 @@ public class SpeechPackage implements ReactPackage {
 
         return modules;
     }
-
+    //@Override >0.47已经过期
+    public List<Class<? extends JavaScriptModule>> createJSModules() {
+        return Collections.emptyList();
+    }
     @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
         return Collections.emptyList();
