@@ -87,7 +87,7 @@ RCT_EXPORT_METHOD(pause) {
 }
 
 RCT_EXPORT_METHOD(resume) {
-    if (![self.iFlySpeechSynthesizer isSpeaking]) {
+    if ([self.iFlySpeechSynthesizer isSpeaking]) {
         [self.iFlySpeechSynthesizer resumeSpeaking];
     }
 }

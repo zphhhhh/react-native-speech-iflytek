@@ -161,6 +161,13 @@ public class SpeechSynthesizerModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void resume() {
+        if (mTts.isSpeaking()) {
+            mTts.resumeSpeaking();
+        }
+    }
+
+    @ReactMethod
     public void setParameter(String parameter, String value) {
         if (parameter.equals(SpeechConstant.TTS_AUDIO_PATH)) {
             value = Environment.getExternalStorageDirectory() + value;
