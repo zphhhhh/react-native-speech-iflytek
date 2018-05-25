@@ -33,6 +33,8 @@ export default class App extends Component {
     this.onRecognizerError = this.onRecognizerError.bind(this);
     this.onRecognizerVolumeChanged = this.onRecognizerVolumeChanged.bind(this);
     this.onSyntheBtnPress = this.onSyntheBtnPress.bind(this);
+    this.onIsSpeakingBtnPress = this.onIsSpeakingBtnPress.bind(this);
+    this.onResumeBtnPress = this.onResumeBtnPress.bind(this);
   }
 
   componentDidMount() {
@@ -68,6 +70,15 @@ export default class App extends Component {
         </Button>
         <Button containerStyle={styles.containerStyle} style={{ color: "white" }} onPress={this.onSyntheBtnPress} activeOpacity={0.8}>
           Tap to speak
+        </Button>
+        <Button containerStyle={styles.containerStyle} style={{ color: "white" }} onPress={this.onIsSpeakingBtnPress} activeOpacity={0.8}>
+          is Speaking?
+        </Button>
+        <Button containerStyle={styles.containerStyle} style={{ color: "white" }} onPress={this.onPauseBtnPress} activeOpacity={0.8}>
+          Pause
+        </Button>
+        <Button containerStyle={styles.containerStyle} style={{ color: "white" }} onPress={this.onResumeBtnPress} activeOpacity={0.8}>
+          Resume
         </Button>
       </View>
     );
@@ -109,6 +120,19 @@ export default class App extends Component {
 
   async onSyntheBtnPress() {
     Synthesizer.start(this.state.text);
+  }
+
+  async onPauseBtnPress() {
+    Synthesizer.pause();
+  }
+
+  onResumeBtnPress() {
+    Synthesizer.resume();
+  }
+
+  async onIsSpeakingBtnPress() {
+    let isSpeaking = await Synthesizer.isSpeaking();
+    alert(isSpeaking);
   }
 
   onSynthesizerSpeakCompletedEvent(result) {
