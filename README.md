@@ -9,7 +9,7 @@ react-native-speech-iflytek 是一个 React Native 下的科大讯飞语音库�
 
 ## Install
 ```
-npm i react-native-speech-iflytek --save
+yarn add react-native-speech-iflytek
 react-native link
 ```
 安装、链接后还须进行下面两步（以 `Example` 工程为例）：
@@ -146,7 +146,8 @@ Synthesizer.setParameter(SpeechConstant.VOICE_NAME, "xiaoyu");
 
 ## FAQ
 1. iOS 提示 `iflytek.framework not found` ？  （见 [issue 15](https://github.com/zphhhhh/react-native-speech-iflytek/issues/15)）  
-  将 `iflytek.framework` 拖入时注意选择 `Copy items if needed`。如忘记选择，最好的方式是在工程中删除讯飞框架，将讯飞框架移至其他文件夹，并重新拖入工程，选择 `Copy items if needed`。（Xcode 的缓存会记住上次选择，若第一次没有`Copy items if needed`，在同一位置下重新拖入不会再次出现选择框。）
+  - 解决方法一（建议）：Xcode 没有找到讯飞库，在项目的 `Building Settings` -> `Search Paths` -> `Framework Search Paths` 中手动添加 `iflytek.framework` 的目录 `$(SRCROOT)/../node_modules/react-native-speech-iflytek/ios/libs`。
+  - 解决方法二：将 `iflytek.framework` 拖入时注意选择 `Copy items if needed`。如忘记选择，最好的方式是在工程中删除讯飞框架，将讯飞框架移至其他文件夹，并重新拖入工程，选择 `Copy items if needed`。（Xcode 的缓存会记住上次选择，若第一次没有`Copy items if needed`，在同一位置下重新拖入不会再次出现选择框。）
 2. `react-native [command]` 命令失效？  
   同时使用 yarn 和 npm 时可能会出现这个问题，建议再敲一次 `yarn` 命令解决依赖。
 
