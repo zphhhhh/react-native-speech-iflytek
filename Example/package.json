@@ -7,16 +7,16 @@
     "test": "jest"
   },
   "dependencies": {
-    "react": "16.3.1",
-    "react-native": "0.55.4",
+    "react": "16.4.1",
+    "react-native": "0.56.0",
     "react-native-button": "^2.3.0",
     "react-native-speech-iflytek": "^1.0.3"
   },
   "devDependencies": {
-    "babel-jest": "23.0.0",
-    "babel-preset-react-native": "4.0.0",
-    "jest": "23.0.0",
-    "react-test-renderer": "16.3.1"
+    "babel-jest": "23.4.2",
+    "babel-preset-react-native": "^5",
+    "jest": "23.5.0",
+    "react-test-renderer": "16.4.1"
   },
   "jest": {
     "preset": "react-native"

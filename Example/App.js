@@ -1,11 +1,11 @@
- /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
+/**
+* Sample React Native App
+* https://github.com/facebook/react-native
+* @flow
+*/
 
 import React, { Component } from "react";
-import { AppRegistry, StyleSheet, View, TextInput, ToastAndroid, DeviceEventEmitter, Platform, NativeEventEmitter } from "react-native";
+import { StyleSheet, View, TextInput, Platform, NativeEventEmitter } from "react-native";
 import { Recognizer, Synthesizer, SpeechConstant } from "react-native-speech-iflytek";
 import Button from "react-native-button";
 
@@ -42,15 +42,15 @@ export default class App extends Component {
     this.recognizerEventEmitter.addListener('onRecognizerResult', this.onRecognizerResult)
     this.recognizerEventEmitter.addListener('onRecognizerError', this.onRecognizerError)
     this.recognizerEventEmitter.addListener('onRecognizerVolumeChanged', this.onRecognizerVolumeChanged)
-    
+
     this.synthesizerEventEmitter = new NativeEventEmitter(Synthesizer);
     this.synthesizerEventEmitter.addListener('onSynthesizerSpeakCompletedEvent', this.onSynthesizerSpeakCompletedEvent);
     this.synthesizerEventEmitter.addListener('onSynthesizerBufferCompletedEvent', this.onSynthesizerBufferCompletedEvent);
   }
 
   componentWillUnmount() {
-      this.recognizerEventEmitter.removeAllListeners();
-      this.synthesizerEventEmitter.removeAllListeners();
+    this.recognizerEventEmitter.removeAllListeners();
+    this.synthesizerEventEmitter.removeAllListeners();
   }
 
   render() {
@@ -86,7 +86,7 @@ export default class App extends Component {
 
   onRecordStart() {
     this.setState({ recordBtnText: "Release to stop" });
-    
+
     Recognizer.start();
   }
 
