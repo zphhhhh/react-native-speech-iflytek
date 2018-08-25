@@ -14,6 +14,11 @@
 
 RCT_EXPORT_MODULE(SpeechConstantModule);
 
++ (BOOL)requiresMainQueueSetup
+{
+    return YES;
+}
+
 - (NSDictionary *) constantsToExport {
     return @{
              @"APPID": [IFlySpeechConstant APPID],
