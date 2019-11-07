@@ -36,7 +36,7 @@ import javax.annotation.Nullable;
  */
 
 public class SpeechRecognizerModule extends ReactContextBaseJavaModule {
-    private Context context;
+    private final ReactApplicationContext context;
 
     private static SpeechRecognizer mIat;
     private static RecognizerListener mIatListener;
@@ -69,7 +69,7 @@ public class SpeechRecognizerModule extends ReactContextBaseJavaModule {
             public void onVolumeChanged(int volume, byte[] bytes) {
                 WritableMap params = Arguments.createMap();
                 params.putInt("volume", volume);
-                SpeechRecognizerModule.this.onJSEvent(getReactApplicationContext(), "onRecognizerVolumeChanged", params);
+                SpeechRecognizerModule.this.onJSEvent(context, "onRecognizerVolumeChanged", params);
             }
 
             @Override
@@ -221,7 +221,7 @@ public class SpeechRecognizerModule extends ReactContextBaseJavaModule {
             result = "";
         }
 
-        this.onJSEvent(getReactApplicationContext(), "onRecognizerResult", params);
+        this.onJSEvent(context, "onRecognizerResult", params);
     }
 
     private void onIatError(SpeechError error) {
@@ -231,7 +231,7 @@ public class SpeechRecognizerModule extends ReactContextBaseJavaModule {
         params.putString("message", error.getErrorDescription());
         params.putString("plainDescription", error.getPlainDescription(true));
 
-        this.onJSEvent(getReactApplicationContext(),"onRecognizerError",params);
+        this.onJSEvent(context,"onRecognizerError",params);
     }
 
     private void showTip(final String str) {
